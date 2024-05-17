@@ -102,7 +102,7 @@ let activities = [
 ];
 
 window.onload = function () {
-    
+
 
     initCategoriesDropdown();
 
@@ -113,7 +113,36 @@ window.onload = function () {
 
 function initCategoriesDropdown() {
 
-    
+    //lets get a hold of the dropdown for the categories from the activities.html
+    let categoriesDropdown = document.querySelector("#categoriesSelect")
+
+    //create the element for the default
+    let defaultOption = document.createElement("option")
+
+    defaultOption.value = "";
+
+    defaultOption.textContent = "Select a Category";
+
+    //
+    categoriesDropdown.appendChild(defaultOption);
+
+    //
+    categories.forEach((category) => {
+
+//create the new option for the category we
+    let newOption = document.createElement("option")
+
+    //set the value for the option
+    newOption.value = category;
+
+    //set the textContent that the user will see when choosing a category
+    newOption.textContent = category;
+
+    categoriesDropdown.appendChild(newOption);
+
+
+    })
+
 
 }
 
@@ -131,7 +160,7 @@ function getActivitiesInCategory(activities, category) {
             matching.push(activities[i]);
         }
     }
-    
+
     //return all the matching menu items
     return matching;
 }
