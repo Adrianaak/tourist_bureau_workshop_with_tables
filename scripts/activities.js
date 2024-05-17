@@ -103,9 +103,56 @@ let activities = [
 
 window.onload = function () {
 
-
+    //run the code that populates the category dropdown
     initCategoriesDropdown();
 
+    //get the category dropdown
+    let categoriesDropdown = document.querySelector("#categoriesSelect")
+
+    //make sure we run the code to work with the activities 
+    categoriesDropdown.addEventListener("change", getActivities);
+
+}
+
+function getActivities(event) {
+
+    //get the selected category from the dropdown which is also event.target
+    let selectedCategory = event.target.value;
+
+    //find the matching activities
+    let matchingActivities = activities.filter((activity) => {
+
+        //cooler shorter way
+        return activity.category === selectedCategory;
+
+    })
+
+//get a hold of the table body
+let tableBody = document.querySelector("#activitiesTableBody");
+
+//set the innerHTML to "" which clears it out
+tableBody.innerHTML = "";
+
+matchingActivities.forEach(( activity) => {
+
+    buildTableRow(tableBody, activity);
+
+})
+
+
+}
+
+function buildTableRow(tableBody, data){
+
+ //create the row to hold the data   
+let newRow = tableBody.insertRow();
+
+//loop over all the properties
+for(let property in data){
+
+    let newTd = newRow.insertCell();
+    newTd.innerText = data[property];
+}
 
 }
 
@@ -129,16 +176,16 @@ function initCategoriesDropdown() {
     //
     categories.forEach((category) => {
 
-//create the new option for the category we
-    let newOption = document.createElement("option")
+        //create the new option for the category we have 
+        let newOption = document.createElement("option")
 
-    //set the value for the option
-    newOption.value = category;
+        //set the value for the option
+        newOption.value = category;
 
-    //set the textContent that the user will see when choosing a category
-    newOption.textContent = category;
+        //set the textContent that the user will see when choosing a category
+        newOption.textContent = category;
 
-    categoriesDropdown.appendChild(newOption);
+        categoriesDropdown.appendChild(newOption);
 
 
     })
